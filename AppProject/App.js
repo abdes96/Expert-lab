@@ -1,6 +1,8 @@
-import { StyleSheet,FlatList, Text, View , Image } from 'react-native';
+import { StyleSheet,FlatList, Text, View , Image , NavigationContainer} from 'react-native';
 import SearchBar from './components/SearchBar';
 import { useEffect , useState } from 'react';
+import { Text, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export default function App() {
   const [employees, setEmployees] = useState([]);
@@ -28,14 +30,14 @@ export default function App() {
       });
   }, []);
 
-  const handleSearch = (query) => {
+  
+const handleSearch = (query) => {
     setSearchText(query);
-    if (query === '') {
+    if (query == '') {
       setFilteredEmployees([]);
       return;
-    
+      
   };
-
   const filtered = employees.filter((employee) => {
     const fullName = `${employee.first_name} ${employee.last_name}`.toLowerCase();
     return fullName.includes(query.toLowerCase());
@@ -43,10 +45,14 @@ export default function App() {
   setFilteredEmployees(filtered);
 };
 
+
+
   return (
     <View style={styles.container}>
             <Text style={styles.text}>Hello, I'm testing React Native!</Text>
       <SearchBar onSearch={handleSearch} />
+
+      
       <FlatList
         data={filteredEmployees}
         keyExtractor={(item) => item.id.toString()}
