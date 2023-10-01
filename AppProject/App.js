@@ -1,105 +1,35 @@
-import { StyleSheet,FlatList, Text, View , Image , NavigationContainer} from 'react-native';
-import SearchBar from './components/SearchBar';
-import { useEffect , useState } from 'react';
-import { Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Home from './navigation/home'; 
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Settings from './navigation/settings';
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [employees, setEmployees] = useState([]);
-  const [searchText, setSearchText] = useState('');
-  const [filteredEmployees, setFilteredEmployees] = useState([]); 
-  useEffect(() => {
-    fetch('https://rsca-0002-prod.novemberfive.co/api/employees')
-      .then((response) => response.json())
-      .then((data) => {
-        if (Array.isArray(data.data)) {
-          const nonStaffEmployees = data.data.filter((employee) => employee.category !== 'STAFF');
-
-            setEmployees(nonStaffEmployees);
-        } else {
-
-          console.error('Data is not an array:');
-        
-        }
-
-       
-        
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-
-  
-const handleSearch = (query) => {
-    setSearchText(query);
-    if (query == '') {
-      setFilteredEmployees([]);
-      return;
-      
-  };
-  const filtered = employees.filter((employee) => {
-    const fullName = `${employee.first_name} ${employee.last_name}`.toLowerCase();
-    return fullName.includes(query.toLowerCase());
-  });
-  setFilteredEmployees(filtered);
-};
-
-
-
   return (
-    <View style={styles.container}>
-            <Text style={styles.text}>Hello, I'm testing React Native!</Text>
-      <SearchBar onSearch={handleSearch} />
-
-      
-      <FlatList
-        data={filteredEmployees}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.employeeContainer}>
-            <Text style={styles.employeeName}>
-              {item.first_name} {item.last_name}
-            </Text>
-            {item.avatar && (
-              <Image
-                source={{ uri: item.avatar }} 
-                style={styles.employeeAvatar}
-              />
-            )}
-             </View>
-        )}
-      />
-      </View>
+    <NavigationContainer>
+      <Tab.Navigator  screenOptions={{
+          tabBarActiveTintColor: 'purple', // Set the active tab icon color to purple
+        }}>
+        <Tab.Screen name="Home" component={Home} options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="home" color={color} size={size} />
+            ),
+          }}/>
+          <Tab.Screen name="Settings" component={Settings} options={{
+            tabBarLabel: 'Settings',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="gear" color={color} size={size} />
+            ),
+          }}/>
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'start',
-    marginTop: 200,
-  },
-  text: {
-    color: 'purple',
-    fontWeight: 'bold',
-    fontSize: 30,
-  },
-  employeeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  employeeName: {
-    fontSize: 18,
-    marginRight: 10,
-  },
-  employeeAvatar: {
-    width: 50, 
-    height: 50,
-    borderRadius: 25, 
-  },
-  
+  // Your styles here
 });

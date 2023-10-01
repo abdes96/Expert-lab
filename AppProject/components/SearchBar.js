@@ -19,7 +19,6 @@ const SearchBar = ( {onSearch}) => {
             handleSearch(); 
           }} 
            value={searchText}
-          
         />
         
       
