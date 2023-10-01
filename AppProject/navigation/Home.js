@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, FlatList, Text, View, Image, TouchableOpacity } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Modal from 'react-native-modal'; 
+
+import * as Animatable from 'react-native-animatable';
+
+
+
 export default function Home() {
   const [employees, setEmployees] = useState([]);
   const [searchText, setSearchText] = useState('');
@@ -21,18 +26,21 @@ export default function Home() {
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Employee Details</Text>
           <View style={styles.employeeDetails}>
-            <Text style={styles.employeeName}>
-              {selectedEmployee.first_name} {selectedEmployee.last_name}
-            </Text>
-            <Text style={styles.employeeInfo}>
-              Shirt Number: {selectedEmployee.shirt_number}
-            </Text>
-            <Text style={styles.employeeInfo}>
-              Birth Date: {selectedEmployee.birth_date}
-            </Text>
-            <Text style={styles.employeeInfo}>
-              Category: {selectedEmployee.category}
-            </Text>
+          <Animatable.View animation="rubberBand" duration={1000} style={styles.employeeDetails}>
+  <Text style={styles.employeeName}>
+    {selectedEmployee.first_name} {selectedEmployee.last_name}
+  </Text>
+  <Text style={styles.employeeInfo}>
+    Shirt Number: {selectedEmployee.shirt_number}
+  </Text>
+  <Text style={styles.employeeInfo}>
+    Birth Date: {selectedEmployee.birth_date}
+  </Text>
+  <Text style={styles.employeeInfo}>
+    Category: {selectedEmployee.category}
+  </Text>
+</Animatable.View>
+
             {selectedEmployee.avatar && (
               <Image
                 source={{ uri: selectedEmployee.avatar }}

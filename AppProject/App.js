@@ -4,14 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './navigation/home'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Settings from './navigation/settings';
+import Settings from './navigation/players';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator  screenOptions={{
-          tabBarActiveTintColor: 'purple', // Set the active tab icon color to purple
+          tabBarActiveTintColor: 'purple', 
         }}>
         <Tab.Screen name="Home" component={Home} options={{
             tabBarLabel: 'Home',
@@ -19,8 +19,8 @@ export default function App() {
               <Icon name="home" color={color} size={size} />
             ),
           }}/>
-          <Tab.Screen name="Settings" component={Settings} options={{
-            tabBarLabel: 'Settings',
+          <Tab.Screen name="Players" component={Settings} options={{
+            tabBarLabel: 'Players',
             tabBarIcon: ({ color, size }) => (
               <Icon name="gear" color={color} size={size} />
             ),
@@ -31,5 +31,4 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  // Your styles here
 });
