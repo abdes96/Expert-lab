@@ -5,7 +5,7 @@ const app = express()
 const server = http.createServer(app)
 const io = require("socket.io")(server, {
 	cors: {
-		origin: "http://localhost:5000",
+		origin: "*",
 		methods: [ "GET", "POST" ]
 	}
 })
@@ -13,7 +13,8 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
 	socket.emit("me", socket.id)
 
-	socket.on("disconnect", () => {
+
+	socket.on("disconnect", () => 	{
 		socket.broadcast.emit("callEnded")
 		
 	})
