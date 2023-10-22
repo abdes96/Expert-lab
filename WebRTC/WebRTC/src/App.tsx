@@ -9,16 +9,12 @@ function App() {
     
 
 
-      <h1>WebRTX</h1>
+      <h1>WebRTC</h1>
 
       <div className="container">
-        <h1 className="mx-5">receiver-video</h1>
           <WebcamComponent/>
-                   </div> 
-
-
+                   </div>
         <div className="container mt-5">
-          <h1 className="mx-5">emitter-video</h1>
           </div> 
     </>
   );

@@ -4,10 +4,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 
-interface MediaStreamConstraints {
-  video: boolean;
-  audio: boolean;
-}
 
 const socket = io("http://localhost:5000");
 
@@ -28,6 +24,7 @@ const WebcamComponent: React.FC = () => {
   const myVideo = useRef<HTMLVideoElement | null>(null);
   const userVideo = useRef<HTMLVideoElement | null>(null);
   const connectionRef = useRef<Peer.Instance | null>(null);
+  const [deviceAccessible, setDeviceAccessible] = useState(true);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -35,11 +32,14 @@ const WebcamComponent: React.FC = () => {
       .then((stream) => {
         setLocalStream(stream);
         myVideo.current.srcObject = stream;
+      })
+      .catch((error) => {
+        console.error("Error accessing device:", error);
+        setDeviceAccessible(false); 
       });
-
+      
     socket.on("me", (id) => {
       setMe(id);
-      console.log("Me:");
     });
 
     socket.on("callUser", (data) => {
@@ -51,6 +51,10 @@ const WebcamComponent: React.FC = () => {
   }, []);
 
   const callUser = (id) => {
+
+    if (!deviceAccessible) {
+      return; 
+    }
     if (localStream) {
       const peer = new Peer({
         initiator: true,
@@ -86,6 +90,10 @@ const WebcamComponent: React.FC = () => {
   };
 
   const answerCall = () => {
+    if (!deviceAccessible) {
+      return;
+    }
+
     if (localStream) {
       setCallAccepted(true);
       const peer = new Peer({
@@ -117,53 +125,61 @@ const WebcamComponent: React.FC = () => {
   };
 
   return (
-    <div id="video">
-      <div>
-        <input
-          type="text"
-          placeholder="Your ID"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <CopyToClipboard text={me}>
-          <button>Copy ID</button>
-        </CopyToClipboard>
-
-        <input
-          type="text"
-          placeholder="Enter ID to Call"
-          value={idToCall}
-          onChange={(e) => setIdToCall(e.target.value)}
-        />
-
-        <button id="call" onClick={() => callUser(idToCall)}>
-          Call
-        </button>
+    <div className="webcam-container">
+       <div className="controls">
+        {deviceAccessible ? (
+          <>
+            <input
+              type="text"
+              placeholder="Your ID"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <CopyToClipboard text={me}>
+              <button>Copy ID</button>
+            </CopyToClipboard>
+            <input
+              type="text"
+              placeholder="Enter ID to Call"
+              value={idToCall}
+              onChange={(e) => setIdToCall(e.target.value)}
+            />
+            <button
+              id="call"
+              onClick={() => callUser(idToCall)}
+              disabled={calling}
+            >
+              Call
+            </button>
+          </>
+        ) : (
+          <div className="device-error">
+            <p>Device not accessible.</p>
+          </div>
+        )}
       </div>
-      <div>
-        <h2>Your Video</h2>
-        <video
-          id="emitter-video"
-          width="100%"
-          height="200px"
-          ref={myVideo}
-          autoPlay
-          playsInline
-        />
-      </div>
-      <div>
-        <h2>Remote Video</h2>
-        <video
-          id="remote-video"
-          width="100%"
-          height="200px"
-          ref={userVideo}
-          autoPlay
-          playsInline
-        />
+      <div className="videos">
+        <div className="video-container">
+          <h2>Your Video</h2>
+          <video
+            id="emitter-video"
+            ref={myVideo}
+            autoPlay
+            playsInline
+          />
+        </div>
+        <div className="video-container">
+          <h2>Remote Video</h2>
+          <video
+            id="remote-video"
+            ref={userVideo}
+            autoPlay
+            playsInline
+          />
+        </div>
       </div>
       {receivingCall && !callAccepted && (
-        <div>
+        <div className="call-received">
           <h1>{name} is calling you</h1>
           <button onClick={answerCall}>Answer</button>
         </div>

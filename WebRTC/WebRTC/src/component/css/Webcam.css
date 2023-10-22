@@ -1,12 +1,73 @@
-#video {
+.webcam-container {
     display: flex;
-    flex-direction: column-reverse;
-
-}
-
-#video div {
-    margin: 30px;
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .controls input {
+    padding: 8px;
+    margin: 0 10px;
+  }
+  
+  .videos {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .video-container {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+  }
+  
+  h2 {
+    margin: 10px 0;
+    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+
+  }
+  
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .call-received {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+button {
+    color: rgb(255, 255, 255);
+    margin: 20px;
+    border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
+input {
+    padding: 10px;
+}
+
+
+.device-error {
+    color: rgb(192, 104, 104); 
+    font-size: 30px; 
+    text-align: center; 
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
