@@ -26,6 +26,7 @@ const WebcamComponent: React.FC = () => {
   const connectionRef = useRef<Peer.Instance | null>(null);
   const [deviceAccessible, setDeviceAccessible] = useState(true);
 
+  
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
