@@ -13,6 +13,12 @@ const rooms = {};
 const users = {};
 
 io.on("connection", (socket) => {
+
+	socket.on("createRoom", (roomName) => {
+		rooms[roomName] = { participants: [] };
+		io.emit("updateRooms", Object.keys(rooms));
+	  });
+	
   socket.on("joinRoom", ({ username, room }) => {
 
 	socket.join(room);
