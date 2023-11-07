@@ -1,18 +1,18 @@
 export default function Friend() {
-
-    return (
-      <>
+  return (
+    <>
       <div className="friend">
-        <h1> Join Friend</h1>
-        <p>Join a room or text a friend</p>
+        <h1> Private Room</h1>
+        <p>Join private room</p>
         <div className="entery">
-          <h2>Enter your username : 
+          <h2>
+            {" "}
+            Enter Room ID : 
             <input type="text" />
           </h2>
-          </div>
-          </div>
-      </>
-  
-    )
-  }
-  
+          <button onClick={""}>Join Chat</button>
+        </div>
+      </div>
+    </>
+  );
+}

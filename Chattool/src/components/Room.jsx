@@ -1,18 +1,19 @@
 function Room() {
-
-    return (
-      <>
+  return (
+    <>
       <div className="room">
-        <h1> join your group</h1>
-        <p>Join a room or text a friend</p>
+        <h1> Join  Room</h1>
+        <p>Join a room </p>
         <div className="entery">
-          <h2>Enter your username : 
+          <h2>
+            Rooms
             <input type="text" />
           </h2>
-          </div>  </div>
-      </>
-  
-    )
-  }
-  
-  export default Room
+          <button onClick={""}>Join Chat</button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default Room;

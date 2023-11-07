@@ -18,56 +18,60 @@ p {
   padding: 50px;
   padding-bottom: 100px;
   border: solid white;
-
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 label.toggle-item {
-	width: 7em;
-	background: #2e394d;
-	height: 3em;
-	display: inline-block;
-	border-radius: 50px;
-	margin: 40px;
-	position: relative;
-	transition: all 0.3s ease;
-	transform-origin: 20% center;
-	cursor: pointer;
-	&:before {
-		display: block;
-		transition: all 0.2s ease;
-		width: 2.3em;
-		height: 2.3em;
-		top: 0.25em;
-		left: 0.25em;
-		border-radius: 2em;
-		border: 2px solid #88cf8f;
-		transition: 0.3s ease;
-	}
+  width: 7em;
+  background: #2e394d;
+  height: 3em;
+  display: inline-block;
+  border-radius: 50px;
+  position: relative;
+  transition: all 0.3s ease;
+  transform-origin: 20% center;
+  cursor: pointer;
 }
-.transparent {
-	label {
-		background: transparent;
-		border: 3px solid #fff;
-		height: 3.35em;
-		&:before {
-			border: 3px solid #fff;
-			width: 2em;
-			height: 2em;
-			top: 0.3em;
-			left: 0.3em;
-			background: #fff;
-		}
-	}
+label.toggle-item:before {
+  display: block;
+  content: '';
+  position: absolute;
+  transition: all 0.2s ease;
+  width: 2.3em;
+  height: 2.3em;
+  top: 0.25em;
+  left: 0.25em;
+  border-radius: 2em;
+  border: 2px solid #88cf8f;
+  transition: 0.3s ease;
 }
 
-#transparent:checked + label {
-	&:before {
-		transform: translateX(59px);
-	}
+.transparent label {
+  background: transparent;
+  border: 3px solid #fff;
+  
+}
+.transparent label:before {
+  content: '';
+  position: absolute;
+  border: 3px solid #fff;
+  width: 2em;
+  height: 2em;
+  top: 0.3em;
+  left: 0.3em;
+  background: #fff;
+}
+#transparent:checked + label:before {
+  content: '';
+  transform: translateX(59px);
 }
 
 
-input {
+
+.transparent input {
 	height: 40px;
 	left: 0;
 	opacity: 0;
@@ -76,3 +80,7 @@ input {
 	width: 40px;
 }
 
+.Darkmode p {
+  margin: auto;
+  font-size: 20px;
+}

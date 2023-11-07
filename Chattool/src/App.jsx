@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 import "./App.css";
 import Friend from "./components/Friend";
@@ -9,15 +8,13 @@ function App() {
     <>
       <div className="header">
         <h1> ChatTool</h1>
-        <div className="toggle-wrapper">
           <div className="toggle-wrapper">
             <div className="toggle transparent">
               <input id="transparent" type="checkbox" />
               <label className="toggle-item" htmlFor="transparent"></label>
             </div>
-            <div className="name">Transparent</div>
+            <div className="Darkmode"><p>Darkmode</p></div>
           </div>
-        </div>
         <p>Join a room or text a friend</p>
         <div className="entery">
           <h2>
