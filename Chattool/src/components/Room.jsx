@@ -29,6 +29,7 @@ function Room() {
 
   return (
     <>
+     
       <div className="room">
         <h1> Join Room</h1>
         <p>Join a room</p>
@@ -37,7 +38,7 @@ function Room() {
           <ul>
             {publicRooms.map((room, index) => (
               <li key={index}>
-                <button onClick={() => joinRoom(room)}>{room}</button>
+                <Link to={`/chat/${room}`}>{room}</Link>
               </li>
             ))}
           </ul>

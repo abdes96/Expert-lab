@@ -26,7 +26,13 @@ io.on("connection", (socket) => {
 
     socket.to(room).emit("userJoined", username);
   });
-
+  socket.on("message", (message) => {
+    const user = users[socket.id];
+    if (user) {
+      const { username, room } = user;
+      io.to(room).emit("message", { username, text: message });
+    }
+  });
   socket.on("disconnect", () => {
 
 	const user = users[socket.id];

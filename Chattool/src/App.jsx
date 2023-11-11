@@ -1,7 +1,10 @@
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { useState } from "react"; 
 import Friend from "./components/Friend";
 import Room from "./components/Room";
+import Chat from "./pages/chat";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -11,6 +14,12 @@ function App() {
 
   return (
     <>
+     <Router>
+      <Switch>
+        <Route path="/" exact component={App} />
+        <Route path="/chat/:roomName" component={ChatRoom} />
+      </Switch>
+    </Router>
       <div className="header">
         <h1> ChatTool</h1>
         <div className="toggle-wrapper">
@@ -37,6 +46,8 @@ function App() {
       <div className="container">
         <Friend username={username} />
         <Room username={username} />
+        <Chat username={username} />
+
       </div>
     </>
   );
