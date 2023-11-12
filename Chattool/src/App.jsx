@@ -1,27 +1,21 @@
-
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import { useState } from "react"; 
+import { useState } from "react";
 import Friend from "./components/Friend";
 import Room from "./components/Room";
-import Chat from "./pages/chat";
+import RoutesConfig from "./Routes";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   const [username, setUsername] = useState("");
+
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
 
   return (
-    <>
-     <Router>
-      <Switch>
-        <Route path="/" exact component={App} />
-        <Route path="/chat/:roomName" component={ChatRoom} />
-      </Switch>
-    </Router>
+    <Router>
       <div className="header">
-        <h1> ChatTool</h1>
+        <h1>ChatTool</h1>
         <div className="toggle-wrapper">
           <div className="toggle transparent">
             <input id="transparent" type="checkbox" />
@@ -30,9 +24,10 @@ function App() {
           <div className="Darkmode">
             <p>Darkmode</p>
           </div>
+          <p>Hello {username}!</p>
         </div>
         <p>Join a room or text a friend</p>
-        <div className="entery">
+        <div className="entry">
           <h2>
             Enter your username :
             <input
@@ -43,13 +38,14 @@ function App() {
           </h2>
         </div>
       </div>
+
       <div className="container">
         <Friend username={username} />
-        <Room username={username} />
-        <Chat username={username} />
-
+        <Room />
       </div>
-    </>
+
+      <RoutesConfig username={username} />
+    </Router>
   );
 }
 

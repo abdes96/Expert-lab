@@ -16,11 +16,13 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: white;
+  text-decoration: none;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+ font-size: 20px;
+ 
 }
 
 body {
@@ -40,6 +42,7 @@ input {
 }
 
 button {
+  color: white;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -58,15 +61,4 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+

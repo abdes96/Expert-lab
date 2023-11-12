@@ -1,4 +1,3 @@
-
 p {
   font-size: 25px;
 }
@@ -35,6 +34,7 @@ label.toggle-item {
   transform-origin: 20% center;
   cursor: pointer;
 }
+
 label.toggle-item:before {
   display: block;
   content: '';
@@ -52,8 +52,9 @@ label.toggle-item:before {
 .transparent label {
   background: transparent;
   border: 3px solid #fff;
-  
+
 }
+
 .transparent label:before {
   content: '';
   position: absolute;
@@ -64,7 +65,8 @@ label.toggle-item:before {
   left: 0.3em;
   background: #fff;
 }
-#transparent:checked + label:before {
+
+#transparent:checked+label:before {
   content: '';
   transform: translateX(59px);
 }
@@ -72,12 +74,12 @@ label.toggle-item:before {
 
 
 .transparent input {
-	height: 40px;
-	left: 0;
-	opacity: 0;
-	position: absolute;
-	top: 0;
-	width: 40px;
+  height: 40px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 40px;
 }
 
 .Darkmode p {
@@ -85,3 +87,45 @@ label.toggle-item:before {
   font-size: 20px;
 }
 
+.chat {
+  position: fixed;
+  background-color: #242424;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  padding: 50px;
+  padding-bottom: 100px;
+  border: solid white;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+input {
+  margin: 10px;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.close-button {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+  background-color: #242424;
+  border: solid white;
+  margin-top: -232px;
+  margin-right: -90px;
+}
