@@ -20,12 +20,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("joinRoom", ({ username, room }, callback) => {
-    console.log(`${username} is joining room ${room}`);
+    //console.log(`${username} is joining room ${room}`);
 
     socket.join(room);
     users[socket.id] = { username, room };
 
-    console.log("Users after joining room:", users);
+    //console.log("Users after joining room:", users);
 
     socket.to(room).emit("userJoined", username);
 
@@ -42,12 +42,11 @@ io.on("connection", (socket) => {
 
   socket.on("message", (message) => {
     const user = users[socket.id];
-    console.log("Received user:", user);
-    console.log("Received message:", message);
+
   
     if (user) {
       const { username, room } = user;
-      console.log(`Received message from ${username} in room ${room}: ${message.text}`);
+      //console.log(`Received message from ${username} in room ${room}: ${message.text}`);
       io.to(room).emit("message", { username, text: message.text });
     }
   });

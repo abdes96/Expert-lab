@@ -22,18 +22,25 @@ function Chat({ username }) {
   useEffect(() => {
     // Add event listeners to receive and send messages
 
+    const storedMessages = JSON.parse(localStorage.getItem(`chat_messages_${roomName}`)) || [];
+    setMessages(storedMessages);
+
     socket.on("message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages, message];
+        localStorage.setItem(`chat_messages_${roomName}`, JSON.stringify(updatedMessages));
+        return updatedMessages;
+      });
     });
 
     return () => {
       socket.off("message");
     };
-  }, []);
+  }, [roomName]);
 
   const sendMessage = () => {
     joinRoom(roomName, () => {
-      
+
       if (newMessage.trim() === "") return;
       socket.emit("message", { username, roomName, text: newMessage });
       setNewMessage("");

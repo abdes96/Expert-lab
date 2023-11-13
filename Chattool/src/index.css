@@ -19,9 +19,11 @@ a {
   color: white;
   text-decoration: none;
   text-decoration: inherit;
+  text-align: center;
 }
 a:hover {
  font-size: 20px;
+ color: #646cff;
  
 }
 
@@ -39,12 +41,16 @@ h1 {
 input {
   margin-bottom: 20px;
   padding: 10px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+
+
 }
 
 button {
   color: white;
-  border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid white;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -52,6 +58,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  text-align: center;
 }
 button:hover {
   border-color: #646cff;

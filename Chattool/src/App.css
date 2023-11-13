@@ -10,17 +10,21 @@ p {
 .container {
   display: flex;
   justify-content: space-around;
+  margin: auto;
   flex-wrap: wrap;
+  margin-bottom: 30px;
+
 }
 
 .container div {
-  padding: 50px;
+  padding: 30px;
   padding-bottom: 100px;
   border: solid white;
-  width: 35%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 label.toggle-item {
@@ -100,7 +104,7 @@ label.toggle-item:before {
   width: 80%;
   display: flex;
   flex-direction: column;
-  height: 60%;
+  height: 70%;
 }
 
 input {
@@ -143,7 +147,23 @@ chat-messages {
   font-size: 1.5rem;
   color: white;
   background-color: #242424;
-  border: solid white;
   margin-top: -232px;
   margin-right: -90px;
+  border: solid 2px white;
+  padding: 20px;
+}
+ ul {
+  list-style-type: none;
+  text-align: center;
+  width: 100%;
+  padding: 0;
+ }
+li {
+    padding-bottom: 15px;
+    font-size: 20px;
+
+}
+
+.header.dark-mode {
+  background-color: #333;
 }
