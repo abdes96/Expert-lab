@@ -29,11 +29,14 @@ function Room({ username }) {
     setRoomName("");
   };
 
-  const joinRoom = (roomName) => {
-    socket.emit("joinRoom", { room: roomName, username });
-    console.log(`Joined room: ${roomName} by : ${username}`);
-    navigate(`/chat/${roomName}`);
-
+  const joinRoom = (roomName, callback) => {
+    socket.emit("joinRoom", { username, room: roomName }, () => {
+      console.log(`Joined room: ${roomName} by: ${username}`);
+      if (typeof callback === 'function') {
+        callback();
+      }
+      navigate(`/chat/${roomName}`);
+    });
   };
 
   return (

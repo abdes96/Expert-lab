@@ -100,8 +100,7 @@ label.toggle-item:before {
   width: 80%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
+  height: 60%;
 }
 
 input {
@@ -110,9 +109,28 @@ input {
 
 .chat-input {
   display: flex;
+  position: fixed;
   align-items: center;
+  margin: auto;
+  bottom: 0;
+  width: 90%;
+  justify-content: center;
+
 }
 
+.chat-input input {
+  width: 100%;
+  text-decoration: none;
+  border: solid 2px white;
+  background-color: #242424;
+  color: white;
+
+}
+chat-messages {
+  display: flex;
+
+
+}
 .chat-header {
   display: flex;
   justify-content: space-between;

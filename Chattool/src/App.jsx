@@ -14,6 +14,7 @@ function App() {
 
   return (
     <Router>
+       <RoutesConfig username={username} />
       <div className="header">
         <h1>ChatTool</h1>
         <div className="toggle-wrapper">
@@ -41,10 +42,10 @@ function App() {
 
       <div className="container">
         <Friend username={username} />
-        <Room />
+        <Room username={username} />
       </div>
 
-      <RoutesConfig username={username} />
+     
     </Router>
   );
 }

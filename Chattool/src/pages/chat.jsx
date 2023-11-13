@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -10,8 +10,18 @@ function Chat({ username }) {
   const [newMessage, setNewMessage] = useState("");
   const navigate = useNavigate();
 
+  const joinRoom = (roomName, callback) => {
+    socket.emit("joinRoom", { username, room: roomName }, () => {
+      console.log(`Joined room: ${roomName} by: ${username}`);
+      if (typeof callback === 'function') {
+        callback();
+      }
+    });
+  };
+
   useEffect(() => {
     // Add event listeners to receive and send messages
+
     socket.on("message", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
@@ -22,9 +32,12 @@ function Chat({ username }) {
   }, []);
 
   const sendMessage = () => {
-    if (newMessage.trim() === "") return;
-    socket.emit("message", { username, roomName, text: newMessage });
-    setNewMessage("");
+    joinRoom(roomName, () => {
+      
+      if (newMessage.trim() === "") return;
+      socket.emit("message", { username, roomName, text: newMessage });
+      setNewMessage("");
+    });
   };
 
   const leaveRoom = () => {
@@ -37,7 +50,7 @@ function Chat({ username }) {
       <div className="chat">
         <div className="chat-header">
           <h1>Chat Room: {roomName}</h1>
-          <button className="close-button" onClick={leaveRoom}>&times;</button>
+          <button className="close-button" onClick={() => leaveRoom()}>&times;</button>
         </div>
         <div className="chat-messages">
           {messages.map((message, index) => (
@@ -53,7 +66,7 @@ function Chat({ username }) {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
           />
-          <button onClick={sendMessage}>Send</button>
+          <button onClick={() => sendMessage()}>Send</button>
         </div>
       </div>
     </>

@@ -10,7 +10,7 @@ export default function Friend() {
             Enter Room ID : 
             <input type="text" />
           </h2>
-          <button onClick={""}>Join Chat</button>
+          <button >Join Chat</button>
         </div>
       </div>
     </>

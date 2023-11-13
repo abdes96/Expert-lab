@@ -19,12 +19,21 @@ io.on("connection", (socket) => {
     io.emit("updateRooms", Object.keys(rooms));
   });
 
-  socket.on("joinRoom", ({ username, room }) => {
+  socket.on("joinRoom", ({ username, room }, callback) => {
+    console.log(`${username} is joining room ${room}`);
 
     socket.join(room);
     users[socket.id] = { username, room };
 
+    console.log("Users after joining room:", users);
+
     socket.to(room).emit("userJoined", username);
+
+    if (typeof callback === 'function') {
+      callback();
+    } else {
+      console.error('Callback is not a function');
+    }
   });
 
   socket.on("getRooms", () => {
@@ -33,11 +42,16 @@ io.on("connection", (socket) => {
 
   socket.on("message", (message) => {
     const user = users[socket.id];
+    console.log("Received user:", user);
+    console.log("Received message:", message);
+  
     if (user) {
       const { username, room } = user;
-      io.to(room).emit("message", { username, text: message });
+      console.log(`Received message from ${username} in room ${room}: ${message.text}`);
+      io.to(room).emit("message", { username, text: message.text });
     }
   });
+
   socket.on("disconnect", () => {
 
     const user = users[socket.id];
