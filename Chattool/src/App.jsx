@@ -31,7 +31,7 @@ function App() {
       <div className="header">
         <h1>ChatTool</h1>
        
-        <p>Join a rooms!</p>
+        <p>Join rooms!</p>
         <div className="entry">
           <form onSubmit={handleCreateUsername}>
             <h2>
