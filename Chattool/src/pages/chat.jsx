@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useParams, useNavigate } from 'react-router-dom';
 
-const socket = io("http://localhost:5000");
+const socket = io("https://serverwebsocket-b1jl.onrender.com/");
 
 function Chat({ username }) {
   const { roomName } = useParams();

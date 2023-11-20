@@ -4,7 +4,7 @@ const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*",
+    origin: "https://serverwebsocket-b1jl.onrender.com",
     methods: ["GET", "POST"],
   },
 });
@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
   socket.on("message", (message) => {
     const user = users[socket.id];
 
-  
+
     if (user) {
       const { username, room } = user;
       //console.log(`Received message from ${username} in room ${room}: ${message.text}`);

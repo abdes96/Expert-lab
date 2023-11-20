@@ -7,7 +7,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 function App() {
   const [username, setUsername] = useState("");
   const [usernameCreated, setUsernameCreated] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
 
   const handleCreateUsername = (e) => {
     e.preventDefault();
