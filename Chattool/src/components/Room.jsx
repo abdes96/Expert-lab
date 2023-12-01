@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
-const socket = io("https://serverwebsocket-b1jl.onrender.com");
+const socket = io("http://localhost:5000");
 
 function Room({ username }) {
   const [roomName, setRoomName] = useState("");
@@ -10,7 +10,6 @@ function Room({ username }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     socket.emit("getRooms");
 
     socket.on("updateRooms", (rooms) => {
@@ -22,22 +21,24 @@ function Room({ username }) {
     };
   }, []);
 
-
-
   const createRoom = () => {
     socket.emit("createRoom", roomName);
     setRoomName("");
   };
 
- const joinRoom = (roomName, callback) => {
-  socket.emit("joinRoom", { username, room: roomName }, () => {
-    console.log(`Joined room: ${roomName} by: ${username}`);
-    if (typeof callback === 'function') {
-      callback();
-    }
-    navigate(`/chat/${roomName}`);
-  });
-};
+  const joinRoom = (roomName, callback) => {
+
+    socket.emit("joinRoom", { room: roomName }, () => {
+
+
+      if (typeof callback === "function") {
+        callback();
+      }
+      navigate(`/chat/${roomName}`);
+    });
+  };
+
+
 
   return (
     <>
@@ -50,7 +51,9 @@ function Room({ username }) {
             {publicRooms.length > 0 ? (
               publicRooms.map((room, index) => (
                 <li key={index}>
-                  <Link to={`/chat/${room}`} onClick={() => joinRoom(room)}>{room}</Link>
+                  <Link to={`/chat/${room}`} onClick={() => joinRoom(room)}>
+                    {room}
+                  </Link>
                 </li>
               ))
             ) : (
@@ -65,6 +68,7 @@ function Room({ username }) {
           />
           <button onClick={createRoom}>Create Chat Room</button>
         </div>
+
       </div>
     </>
   );

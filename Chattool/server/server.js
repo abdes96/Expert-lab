@@ -1,10 +1,11 @@
+const { log } = require("console");
 const express = require("express");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://serverwebsocket-b1jl.onrender.com",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -13,26 +14,30 @@ const rooms = {};
 const users = {};
 
 io.on("connection", (socket) => {
-
   socket.on("createRoom", (roomName) => {
     rooms[roomName] = { participants: [] };
     io.emit("updateRooms", Object.keys(rooms));
   });
 
   socket.on("joinRoom", ({ username, room }, callback) => {
-    //console.log(`${username} is joining room ${room}`);
-
     socket.join(room);
-    users[socket.id] = { username, room };
 
-    //console.log("Users after joining room:", users);
+    if (username) {
+      users[socket.id] = { username, room };
 
-    socket.to(room).emit("userJoined", username);
+      const usernames = Object.values(users).filter(u => u.room === room).map(u => u.username);
+      io.to(room).emit("userJoined", usernames);
 
-    if (typeof callback === 'function') {
-      callback();
+      const messages = rooms[room] ? rooms[room].messages : [];
+      socket.emit("loadMessages", messages);
+
+      if (typeof callback === 'function') {
+        callback();
+      } else {
+        console.error('Callback is not a function');
+      }
     } else {
-      console.error('Callback is not a function');
+      console.error('Username is missing when joining room.');
     }
   });
 
@@ -41,28 +46,35 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message", (message) => {
-    const user = users[socket.id];
+    const { username, roomName, text } = message;
 
-
-    if (user) {
-      const { username, room } = user;
-      //console.log(`Received message from ${username} in room ${room}: ${message.text}`);
-      io.to(room).emit("message", { username, text: message.text });
+    if (!rooms[roomName] || !rooms[roomName].messages) {
+      rooms[roomName] = { participants: [], messages: [] };
     }
+    rooms[roomName].messages.push({ username, text });
+
+    io.to(roomName).emit("message", { username, text });
   });
 
-  socket.on("disconnect", () => {
-
+  socket.on("userLeft", ({ username, roomName }) => {
     const user = users[socket.id];
     if (user) {
-      const { username, room } = user;
-      socket.to(room).emit("userLeft", username);
+      const { room } = user;
+      const remainingUsernames = Object.values(users)
+        .filter(u => u.room === room)
+        .map(u => u.username)
+        .filter(u => u !== username);
 
+      io.to(room).emit("userLeft", { remainingUsernames, leftUsername: username });
 
       socket.leave(room);
       delete users[socket.id];
+      console.log(`${username} left the room ${room}`);
+      console.log("Remaining usernames:", remainingUsernames);
     }
   });
+
+
 });
 
-server.listen(5000, () => console.log("server is running on port 5000"));
+server.listen(5000, () => console.log("Server is running on port 5000"));

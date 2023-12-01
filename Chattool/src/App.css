@@ -128,13 +128,16 @@ input {
   border: solid 2px white;
   background-color: #242424;
   color: white;
-
+  height: 30px;
 }
+
+
 chat-messages {
   display: flex;
 
 
 }
+
 .chat-header {
   display: flex;
   justify-content: space-between;
@@ -152,18 +155,55 @@ chat-messages {
   border: solid 2px white;
   padding: 20px;
 }
- ul {
+
+ul {
   list-style-type: none;
   text-align: center;
   width: 100%;
   padding: 0;
- }
+}
+
 li {
-    padding-bottom: 15px;
-    font-size: 20px;
+  padding-bottom: 15px;
+  font-size: 20px;
 
 }
 
 .header.dark-mode {
   background-color: #333;
+}
+
+.chat-users {
+
+  display: flex;
+  width: auto;
+}
+
+.chat-users li {
+  display: flex;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.chat-users li::before {
+  content: "●";
+  color: rgb(44, 83, 44);
+  margin-right: 8px;
+}
+
+.chat-users ul {
+  display: flex;
+  font-weight: bold;
+  max-width: 600px;
+
+
+}
+
+.chat-messages {
+  border: solid;
+  height: 80%;
+  text-align: left;
+  padding: 15px;
+  max-height: 400px;
+  overflow-y: scroll;
 }
