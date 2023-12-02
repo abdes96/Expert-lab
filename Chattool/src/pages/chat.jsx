@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import { useParams, useNavigate } from "react-router-dom";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://serverwebsocket-b1jl.onrender.com");
 
 function Chat({ username }) {
   const { roomName } = useParams();
@@ -24,8 +24,13 @@ function Chat({ username }) {
       }
     });
   };
+  const handleBeforeUnload = () => {
+    socket.emit("userLeft", { username, roomName });
+  };
 
   useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
 
     socket.on("userJoined", (usernames) => {
 
@@ -106,7 +111,7 @@ function Chat({ username }) {
               <strong>{message.username}:</strong> {message.text}
             </div>
           ))}
-        <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
         </div>
 
         <div className="chat-input">

@@ -5,7 +5,7 @@ const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*",
+    origin: "https://serverwebsocket-b1jl.onrender.com",
     methods: ["GET", "POST"],
   },
 });

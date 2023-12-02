@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Room from "./components/Room";
 import RoutesConfig from "./Routes";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -22,14 +22,12 @@ function App() {
     setUsername(e.target.value);
   };
 
- 
-
   return (
     <Router>
-      <RoutesConfig username={username} />
+      {usernameCreated && <RoutesConfig username={username} />}
       <div className="header">
         <h1>ChatTool</h1>
-       
+
         <p>Join rooms!</p>
         <div className="entry">
           <form onSubmit={handleCreateUsername}>
