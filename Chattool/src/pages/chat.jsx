@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import { useParams, useNavigate } from "react-router-dom";
+import './chat.css'
 
 const socket = io("https://serverwebsocket-b1jl.onrender.com");
 

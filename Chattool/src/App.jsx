@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Room from "./components/Room";
 import RoutesConfig from "./Routes";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -8,10 +8,20 @@ function App() {
   const [username, setUsername] = useState("");
   const [usernameCreated, setUsernameCreated] = useState(false);
 
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+      setUsernameCreated(true);
+    }
+  }, []);
+
   const handleCreateUsername = (e) => {
     e.preventDefault();
     if (username.trim() !== "") {
-      console.log(`Username created: ${username}`);
+      // Save username in local storage
+      localStorage.setItem("username", username);
+
       setUsernameCreated(true);
     } else {
       alert("Please enter a valid username");
