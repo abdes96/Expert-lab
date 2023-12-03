@@ -13,6 +13,7 @@ function App() {
     if (storedUsername) {
       setUsername(storedUsername);
       setUsernameCreated(true);
+      
     }
   }, []);
 
