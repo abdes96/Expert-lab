@@ -1,14 +1,21 @@
-import React from "react";
+import PropTypes from "prop-types";
+import ObjectUploader from "./ObjectUploader";
 
-function Navigation({ onSelectModel }) {
+const Navigation = ({ onSelectModel, onFileUpload }) => {
   return (
-    <div className="navigation">
-      <button onClick={() => onSelectModel("goingmerry")}>Going Merry</button>
-      <button onClick={() => onSelectModel("meramera")}>MerameraNomi</button>
+    <nav className="navigation">
+      <button onClick={() => onSelectModel("goingmerry")}>Goingmerry</button>
+      <button onClick={() => onSelectModel("meramera")}>Meramera</button>
       <button onClick={() => onSelectModel("lamp")}>Lamp</button>
-      <button onClick={() => onSelectModel("model4")}>Model 4</button>
-    </div>
+
+      <ObjectUploader onFileUpload={onFileUpload} />
+    </nav>
   );
-}
+};
+
+Navigation.propTypes = {
+  onSelectModel: PropTypes.func.isRequired,
+  onFileUpload: PropTypes.func.isRequired,
+};
 
 export default Navigation;

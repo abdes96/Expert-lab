@@ -7,14 +7,32 @@ Source: https://sketchfab.com/3d-models/one-piece-mera-mera-no-mi-ac8c016683fb47
 Title: One Piece - Mera Mera no Mi
 */
 
-import React, { useRef } from 'react'
+import { useMemo, useRef, useState } from 'react';
 import { useGLTF } from '@react-three/drei'
+import { Html } from '@react-three/drei';
+
+import * as THREE from 'three';
 
 export function Meramera(props) {
   const { nodes, materials } = useGLTF('/meramera.glb')
 
-  
+  const fruitTipRef = useRef();
+
+  const handleFruitTipClick = () => {
+    if (fruitTipRef.current) {
+      const isOrange = fruitTipRef.current.material.color.equals(new THREE.Color(0xffa500));
+
+      const newMaterial = isOrange
+        ? materials['Fruit_Tip.001']
+        : new THREE.MeshStandardMaterial({ color: 0xffa500 });
+
+      fruitTipRef.current.material = newMaterial;
+    }
+
+  };
+
   return (
+
     <group {...props} dispose={null}>
       <group scale={0.01}>
         <mesh geometry={nodes['Fruit_Instancer|Fruit_FireLP001|Dupli|_FireFruit_0'].geometry} material={materials.FireFruit} position={[-50.112, -32.301, 0]} rotation={[-Math.PI / 2, 1.363, Math.PI / 2]} scale={32.345} />
@@ -56,7 +74,8 @@ export function Meramera(props) {
         <mesh geometry={nodes['Fruit_Instancer|Fruit_FireLP001|Dupli|36_FireFruit_0'].geometry} material={materials.FireFruit} position={[22.598, -86.828, 39.14]} rotation={[-2.125, -0.295, -2.702]} scale={33.13} />
         <mesh geometry={nodes['Fruit_Instancer|Fruit_FireLP001|Dupli|37_FireFruit_0'].geometry} material={materials.FireFruit} position={[-45.195, -86.828, 0]} rotation={[-Math.PI / 2, 0.62, Math.PI / 2]} scale={33.13} />
         <mesh geometry={nodes.Fruit_INner_Inner_0.geometry} material={materials.Inner} position={[0, -56.557, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[48.716, 48.716, 55.314]} />
-        <mesh geometry={nodes.Fruit_Tp_Fruit_Tip001_0.geometry} material={materials['Fruit_Tip.001']} position={[0, 27.662, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={40.838} />
+        <mesh geometry={nodes.Fruit_Tp_Fruit_Tip001_0.geometry} material={materials['Fruit_Tip.001']} position={[0, 27.662, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={40.838} onClick={handleFruitTipClick}
+          ref={fruitTipRef} />
       </group>
     </group>
   )

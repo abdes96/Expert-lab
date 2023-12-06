@@ -9,25 +9,36 @@ body {
 }
 
 
+
 .navigation {
   display: flex;
-  justify-content: space-around;
-  padding: 20px;
+  justify-content: space-between;
+  padding: 15px;
   background-color: #333;
+  color: white;
+  align-items: center;
 }
 
-button {
+.navigation button {
+  padding: 15px;
   background-color: #555;
   color: white;
   border: none;
-  padding: 8px 20px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #777;
+.navigation input[type="file"] {
+  display: none;
 }
 
-Canvas {
-  cursor: grab;
+.file-upload-label {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  margin-right: 10px;
+  display: inline;
+  text-align: center;
 }
+
+

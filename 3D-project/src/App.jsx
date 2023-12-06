@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { OrbitControls, Stars } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import Goingmerry from "../models/Goingmerry";
-import Meramera from "../models/Meramera";
-import Lamp from "../models/Lamp";
-import Navigation from "./components/Navigation";
-import './App.css'
+import React, { useState } from 'react';
+import { OrbitControls, Stars } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import Goingmerry from '../models/Goingmerry';
+import Meramera from '../models/Meramera';
+import Lamp from '../models/Lamp';
+import Navigation from './components/Navigation';
+import ObjectUploader from './components/ObjectUploader';
+import './App.css';
 
 function App() {
-  const [selectedModel, setSelectedModel] = useState("goingmerry");
+  const [selectedModel, setSelectedModel] = useState('goingmerry');
   const [lampOn, setLampOn] = useState(true);
+  const [selectedObject, setSelectedObject] = useState(null);
 
   const handleModelSelect = (modelName) => {
     setSelectedModel(modelName);
@@ -19,16 +21,22 @@ function App() {
     setLampOn(!lampOn);
   };
 
+  const handleObjectLoad = (object) => {
+    setSelectedObject(object);
+    setSelectedModel('customModel'); 
+  };
+    console.log(selectedModel);
+
   return (
     <>
-      <Navigation onSelectModel={handleModelSelect} />
-      <Canvas style={{ height: "100vh" }}>
+      <Navigation onSelectModel={handleModelSelect} onFileUpload={handleObjectLoad} />
+      <Canvas style={{ height: '100vh' }}>
         <ambientLight intensity={2} />
 
-        {selectedModel === "goingmerry" && <Goingmerry />}
-        {selectedModel === "meramera" && <Meramera />}
-        {selectedModel === "lamp" && <Lamp lampOn={lampOn} onClick={handleToggleLamp} />}
-        {selectedModel === "model4" && <Model4 />}
+        {selectedModel === 'goingmerry' && <Goingmerry />}
+        {selectedModel === 'meramera' && <Meramera />}
+        {selectedModel === 'lamp' && <Lamp lampOn={lampOn} onClick={handleToggleLamp} />}
+        {selectedModel === 'customModel' && selectedObject && <primitive object={selectedObject} />}
 
         <OrbitControls />
         <Stars />
