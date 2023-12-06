@@ -7,7 +7,23 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: rgb(63, 58, 71);
 }
-.Outerwrapper {
-  margin: auto;
-  margin-top: 200px;
+
+
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background-color: #333;
+}
+
+button {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #777;
 }
