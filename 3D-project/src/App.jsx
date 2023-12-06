@@ -1,31 +1,37 @@
-import "./App.css";
+import React, { useState } from "react";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Goingmerry from "../models/Goingmerry";
-import { useState } from "react";
-import Navigation from "./components/navigation";
+import Meramera from "../models/Meramera";
+import Lamp from "../models/Lamp";
+import Navigation from "./components/Navigation";
+import './App.css'
 
 function App() {
   const [selectedModel, setSelectedModel] = useState("goingmerry");
+  const [lampOn, setLampOn] = useState(true);
 
   const handleModelSelect = (modelName) => {
     setSelectedModel(modelName);
   };
 
+  const handleToggleLamp = () => {
+    setLampOn(!lampOn);
+  };
+
   return (
     <>
       <Navigation onSelectModel={handleModelSelect} />
-      <Canvas style={{ height: "100vh" }} >
+      <Canvas style={{ height: "100vh" }}>
         <ambientLight intensity={2} />
 
         {selectedModel === "goingmerry" && <Goingmerry />}
-        {selectedModel === "model2" && <Model2 />}
-        {selectedModel === "model3" && <Model3 />}
+        {selectedModel === "meramera" && <Meramera />}
+        {selectedModel === "lamp" && <Lamp lampOn={lampOn} onClick={handleToggleLamp} />}
         {selectedModel === "model4" && <Model4 />}
 
         <OrbitControls />
         <Stars />
-
       </Canvas>
     </>
   );

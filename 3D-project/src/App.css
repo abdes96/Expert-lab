@@ -27,3 +27,7 @@ button {
 button:hover {
   background-color: #777;
 }
+
+Canvas {
+  cursor: grab;
+}
