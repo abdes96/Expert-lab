@@ -8,12 +8,19 @@ Title: One Piece -Going Merry
 */
 
 import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import { Float, useGLTF } from '@react-three/drei'
 
 export function Goingmerry(props) {
   const { nodes, materials } = useGLTF('/goingmerry.glb')
   return (
-    <group {...props} dispose={null}>
+    <Float
+    speed={2}
+    rotationIntensity={2}
+    floatIntensity={1}
+    floatingRange={[1, 2]}
+    position={[0, -2.5, 0]}
+  >
+    <group {...props} dispose={null} scale={0.5}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh geometry={nodes.Object_2.geometry} material={materials.None} />
         <mesh geometry={nodes.Object_3.geometry} material={materials.None} />
@@ -46,6 +53,7 @@ export function Goingmerry(props) {
         <mesh geometry={nodes.Object_30.geometry} material={materials.None} />
       </group>
     </group>
+    </Float>
   )
 }
 
