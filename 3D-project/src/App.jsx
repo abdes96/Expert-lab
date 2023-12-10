@@ -21,7 +21,7 @@ function App() {
   };
 
   const handleObjectLoad = (object) => {
-    setSelectedObject(object);
+    nesetSelectedObject(object);
     setSelectedModel('customModel'); 
   };
     console.log(selectedModel);

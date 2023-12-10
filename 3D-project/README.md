@@ -3,6 +3,10 @@
 
 Een eenvoudige React-toepassing voor het bekijken van 3D-modellen met behulp van de Three.js-bibliotheek.
 
+sources :
+- convert 3d model to jsx : https://github.com/pmndrs/gltfjsx
+- react-three-fiber:  https://docs.pmnd.rs/react-three-fiber/getting-started/introduction
+
 ## Kenmerken
 
 - Bekijk vooraf gedefinieerde 3D-modellen.
