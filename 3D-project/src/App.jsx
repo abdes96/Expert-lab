@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { OrbitControls, Stars } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import Goingmerry from '../models/Goingmerry';
 import Meramera from '../models/Meramera';
 import Lamp from '../models/Lamp';
 import Navigation from './components/Navigation';
-import ObjectUploader from './components/ObjectUploader';
 import './App.css';
 
 function App() {
