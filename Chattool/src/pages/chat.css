@@ -169,6 +169,9 @@ li {
         position: relative;
         margin: auto;
     }
+    .chat-input input  {
+        height: 15px;
+    }
    
 
 }
