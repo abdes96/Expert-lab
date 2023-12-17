@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -43,16 +43,16 @@ function Room({ username }) {
   return (
     <>
       <div className="room">
-        <h1> Join Room</h1>
-        <p>Join a room</p>
+        <h2> Join a Room</h2>
         <div className="entry">
-          <h2>Rooms</h2>
+          <h2>Rooms <img src="/room.gif" alt="" /></h2>
           <ul>
             {publicRooms.length > 0 ? (
               publicRooms.map((room, index) => (
                 <li key={index}>
                   <Link to={`/chat/${room}`} onClick={() => joinRoom(room)}>
-                    {room}
+
+                    {room}<img id="rooms" src="rooms.svg" alt="" />
                   </Link>
                 </li>
               ))
