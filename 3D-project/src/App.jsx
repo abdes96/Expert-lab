@@ -16,9 +16,7 @@ function App() {
     setSelectedModel(modelName);
   };
 
-  const handleToggleLamp = () => {
-    setLampOn(!lampOn);
-  };
+ 
 
   const handleObjectLoad = (object) => {
     setSelectedObject(object);
@@ -34,7 +32,7 @@ function App() {
 
         {selectedModel === 'goingmerry' && <Goingmerry />}
         {selectedModel === 'meramera' && <Meramera />}
-        {selectedModel === 'lamp' && <Lamp lampOn={lampOn} onClick={handleToggleLamp} />}
+        {selectedModel === 'lamp' && <Lamp   />}
         {selectedModel === 'customModel' && selectedObject && <primitive object={selectedObject} />}
 
         <OrbitControls />
