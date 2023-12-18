@@ -3,14 +3,14 @@ import "./css/Webcam.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-
+import { set } from "mongoose";
 
 const socket = io("http://localhost:5000");
 
 const WebcamComponent: React.FC = () => {
   const [localStream, setLocalStream] = useState<MediaStream | null>(null);
   const [calling, setCalling] = useState(false);
-
+  const [otherUserId, setOtherUserId] = useState("");
   const [me, setMe] = useState("");
   const [receivingCall, setReceivingCall] = useState(false);
   const [caller, setCaller] = useState("");
@@ -26,7 +26,6 @@ const WebcamComponent: React.FC = () => {
   const connectionRef = useRef<Peer.Instance | null>(null);
   const [deviceAccessible, setDeviceAccessible] = useState(true);
 
-  
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -36,14 +35,16 @@ const WebcamComponent: React.FC = () => {
       })
       .catch((error) => {
         console.error("Error accessing device:", error);
-        setDeviceAccessible(false); 
+        setDeviceAccessible(false);
       });
-      
+
     socket.on("me", (id) => {
       setMe(id);
     });
 
     socket.on("callUser", (data) => {
+      setOtherUserId(data.from);
+
       setReceivingCall(true);
       setCaller(data.from);
       setName(data.name);
@@ -52,9 +53,9 @@ const WebcamComponent: React.FC = () => {
   }, []);
 
   const callUser = (id) => {
-
+    setOtherUserId(id);
     if (!deviceAccessible) {
-      return; 
+      return;
     }
     if (localStream) {
       const peer = new Peer({
@@ -120,14 +121,18 @@ const WebcamComponent: React.FC = () => {
 
   const leaveCall = () => {
     setCallEnded(true);
+
     if (connectionRef.current) {
       connectionRef.current.destroy();
+      socket.emit("leaveCall", { userToCall: otherUserId });
     }
+
+    window.location.href = "/";
   };
 
   return (
     <div className="webcam-container">
-       <div className="controls">
+      <div className="controls">
         {deviceAccessible ? (
           <>
             <input
@@ -162,27 +167,19 @@ const WebcamComponent: React.FC = () => {
       <div className="videos">
         <div className="video-container">
           <h2>Your Video</h2>
-          <video
-            id="emitter-video"
-            ref={myVideo}
-            autoPlay
-            playsInline
-          />
+          <video id="emitter-video" ref={myVideo} autoPlay playsInline />
         </div>
         <div className="video-container">
           <h2>Remote Video</h2>
-          <video
-            id="remote-video"
-            ref={userVideo}
-            autoPlay
-            playsInline
-          />
+          <video id="remote-video" ref={userVideo} autoPlay playsInline />
+          <button onClick={leaveCall}>End Call</button>
         </div>
       </div>
       {receivingCall && !callAccepted && (
         <div className="call-received">
           <h1>{name} is calling you</h1>
           <button onClick={answerCall}>Answer</button>
+          <button onClick={leaveCall}>End Call</button>
         </div>
       )}
     </div>
