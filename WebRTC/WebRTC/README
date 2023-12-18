@@ -1,0 +1,19 @@
+# Video Call Application
+
+This is a simple video call application built with React, TypeScript, and WebRTC.
+
+## Features
+
+- Establish a peer-to-peer connection for video calling.
+- Ability to accept or end a call.
+- Shows an error message if the device is not accessible.
+
+## Setup
+
+To run this project, you will need to install it locally using npm on the WebRTC directory :
+$ npm install
+$ npm run dev
+
+You wil also need to do the same in the server directory to start the server :
+$ npm install
+$ npm run start or node server

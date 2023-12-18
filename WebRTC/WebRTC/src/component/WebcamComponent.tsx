@@ -30,7 +30,9 @@ const WebcamComponent: React.FC = () => {
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         setLocalStream(stream);
-        myVideo.current.srcObject = stream;
+        if (myVideo.current) {
+          myVideo.current.srcObject = stream;
+        }
       })
       .catch((error) => {
         console.error("Error accessing device:", error);
@@ -51,7 +53,7 @@ const WebcamComponent: React.FC = () => {
     });
   }, []);
 
-  const callUser = (id) => {
+  const callUser = (id: string) => {
     setOtherUserId(id);
     if (!deviceAccessible) {
       return;
@@ -111,15 +113,21 @@ const WebcamComponent: React.FC = () => {
         }
       });
 
-      peer.signal(callerSignal);
+      if (callerSignal) {
+        peer.signal(callerSignal);
+      } else {
+        console.error("callerSignal is undefined, unable to signal the call.");
+      }
+
       connectionRef.current = peer;
+      setCallEnded(true);
+
     } else {
       console.error("localStream is null, unable to answer the call.");
     }
   };
 
   const leaveCall = () => {
-    setCallEnded(true);
 
     if (connectionRef.current) {
       connectionRef.current.destroy();
@@ -171,7 +179,7 @@ const WebcamComponent: React.FC = () => {
         <div className="video-container">
           <h2>Calling user cam</h2>
           <video id="remote-video" ref={userVideo} autoPlay playsInline />
-          {callAccepted && <button onClick={leaveCall}>End Call</button>}
+          {callEnded && <button onClick={leaveCall}>End Call</button>}
         </div>
       </div>
       {receivingCall && !callAccepted && (
