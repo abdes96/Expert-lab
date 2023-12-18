@@ -37,7 +37,11 @@
   
   video {
     max-width: 100%;
-    height: auto;
+    height: 80%;
+    border-radius: 10px ;
+    border: solid 3px rgb(192, 104, 104);
+
+
   }
   
   .call-received {

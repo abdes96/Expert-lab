@@ -3,9 +3,8 @@ import "./css/Webcam.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import { set } from "mongoose";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://webrtc-jl8a.onrender.com/");
 
 const WebcamComponent: React.FC = () => {
   const [localStream, setLocalStream] = useState<MediaStream | null>(null);
@@ -166,13 +165,13 @@ const WebcamComponent: React.FC = () => {
       </div>
       <div className="videos">
         <div className="video-container">
-          <h2>Your Video</h2>
+          <h2>Your cam</h2>
           <video id="emitter-video" ref={myVideo} autoPlay playsInline />
         </div>
         <div className="video-container">
-          <h2>Remote Video</h2>
+          <h2>Calling user cam</h2>
           <video id="remote-video" ref={userVideo} autoPlay playsInline />
-          <button onClick={leaveCall}>End Call</button>
+          {callAccepted && <button onClick={leaveCall}>End Call</button>}
         </div>
       </div>
       {receivingCall && !callAccepted && (
